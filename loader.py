@@ -1,13 +1,10 @@
 import os
 import sqlite3
 
-from dotenv import load_dotenv
 import pandas as pd
 import requests
 import streamlit as st
 
-# Load environment variables
-# load_dotenv()
 
 FUND_ADDRESS = st.secrets["FUND_ADDRESS"]
 TX_API_URL = st.secrets["TX_API_URL"]
