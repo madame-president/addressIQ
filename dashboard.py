@@ -1,6 +1,6 @@
 import os
 
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
@@ -34,8 +34,8 @@ st.set_page_config(
 # -----------------------------
 # Load environment variables
 # -----------------------------
-load_dotenv()
-FUND_ADDRESS = os.getenv("FUND_ADDRESS")
+# load_dotenv()
+FUND_ADDRESS = st.secrets["FUND_ADDRESS"]
 
 # -----------------------------
 # CSS for badge

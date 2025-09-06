@@ -35,10 +35,10 @@ y1annualReturn = ((y1closingFundValue - y1closingFundCost) / y1closingFundCost) 
 # -----------------------------
 # PRINT RESULTS
 # -----------------------------
-print(f"Fund inception: {fundInception}")
-print(f"Year 1 end date: {y1endDate.strftime('%Y-%m-%d')}")
-print(f"Year 1 BTC held: {y1bitcoinHeld}")
-print(f"Year 1 closing price: {y1closingPrice}")
-print(f"Year 1 closing fund value: {y1closingFundValue}")
-print(f"Year 1 closing fund cost: {y1closingFundCost}")
-print(f"Year 1 annual return (%): {y1annualReturn:.2f}%")
+# print(f"Fund inception: {fundInception}")
+# print(f"Year 1 end date: {y1endDate.strftime('%Y-%m-%d')}")
+# print(f"Year 1 BTC held: {y1bitcoinHeld}")
+# print(f"Year 1 closing price: {y1closingPrice}")
+# print(f"Year 1 closing fund value: {y1closingFundValue}")
+# print(f"Year 1 closing fund cost: {y1closingFundCost}")
+# print(f"Year 1 annual return (%): {y1annualReturn:.2f}%")

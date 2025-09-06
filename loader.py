@@ -4,17 +4,18 @@ import sqlite3
 from dotenv import load_dotenv
 import pandas as pd
 import requests
+import streamlit as st
 
 # Load environment variables
-load_dotenv()
+# load_dotenv()
 
-FUND_ADDRESS = os.getenv("FUND_ADDRESS")
-TX_API_URL = os.getenv("TX_API_URL")
+FUND_ADDRESS = st.secrets["FUND_ADDRESS"]
+TX_API_URL = st.secrets["TX_API_URL"]
 TX_API_PARAM = f"{TX_API_URL}/{FUND_ADDRESS}/txs"
-HISTORICAL_PRICE_API_URL = os.getenv("HISTORICAL_PRICE_API_URL")
-LIVE_PRICE_API_URL = os.getenv("LIVE_PRICE_API_URL")
-TX_STORAGE = os.getenv("TX_STORAGE")
-PRICE_STORAGE = os.getenv("PRICE_STORAGE")
+HISTORICAL_PRICE_API_URL = st.secrets["HISTORICAL_PRICE_API_URL"]
+LIVE_PRICE_API_URL = st.secrets["LIVE_PRICE_API_URL"]
+TX_STORAGE = st.secrets["TX_STORAGE"]
+PRICE_STORAGE = st.secrets["PRICE_STORAGE"]
 
 
 # -----------------------------
