@@ -33,7 +33,7 @@ y1closingFundCost = y1Df["costCAD"].sum()
 y1annualReturn = ((y1closingFundValue - y1closingFundCost) / y1closingFundCost) * 100 if y1closingFundCost != 0 else 0
 
 # -----------------------------
-# PRINT RESULTS
+# FOR INTERNAL TESTING
 # -----------------------------
 # print(f"Fund inception: {fundInception}")
 # print(f"Year 1 end date: {y1endDate.strftime('%Y-%m-%d')}")

@@ -16,7 +16,7 @@ PRICE_STORAGE = st.secrets["PRICE_STORAGE"]
 
 
 # -----------------------------
-# DATABASE INITIALIZATION
+# DATABASE INIT
 # -----------------------------
 def initializeDatabases():
     """Create necessary tables if they don't exist."""
@@ -58,20 +58,56 @@ def getNewTransactions(seenTransactions):
 
 def parseTransactions(newTransactions):
     parsed = []
+    satBtc = 100_000_000
+
     for tx in newTransactions:
         txid = tx["txid"]
         status = tx.get("status", {})
         blockHeight = status.get("block_height")
         blockTime = status.get("block_time")
+
         if not blockHeight or not blockTime:
             continue
-        btcValue = sum(
+
+        # Calculate total received deposits
+        totalReceivedSats = sum(
             vout["value"]
             for vout in tx.get("vout", [])
             if vout.get("scriptpubkey_address") == FUND_ADDRESS
-        ) / 1e8
-        parsed.append((txid, blockHeight, blockTime, btcValue))
+        )
+
+        # Calculate total spent withdrawals
+        totalSpentSats = 0
+        for vin in tx.get("vin", []):
+            prevout = vin.get("prevout")
+            if prevout and prevout.get("scriptpubkey_address") == FUND_ADDRESS:
+                totalSpentSats += prevout.get("value", 0)
+
+        # Calculate net value
+        netSatsValue = totalReceivedSats - totalSpentSats
+        btcValue = netSatsValue / satBtc
+
+        if netSatsValue != 0:
+            parsed.append((txid, blockHeight, blockTime, btcValue))
+
     return parsed
+
+#def parseTransactions(newTransactions):
+#    parsed = []
+#    for tx in newTransactions:
+#        txid = tx["txid"]
+#        status = tx.get("status", {})
+#        blockHeight = status.get("block_height")
+#        blockTime = status.get("block_time")
+#        if not blockHeight or not blockTime:
+#            continue
+#        btcValue = sum(
+#            vout["value"]
+#            for vout in tx.get("vout", [])
+#            if vout.get("scriptpubkey_address") == FUND_ADDRESS
+#        ) / 1e8
+#        parsed.append((txid, blockHeight, blockTime, btcValue))
+#    return parsed
 
 
 def insertTransactions(parsedTransactions):
@@ -85,7 +121,7 @@ def insertTransactions(parsedTransactions):
 
 
 def getTransactions():
-    """Fetch transactions, store new ones, and return as DataFrame."""
+    """Get transactions, store new ones, and return as DataFrame."""
     initializeDatabases()
     seen = getSeenTransactions()
     newTx = getNewTransactions(seen)
@@ -107,7 +143,7 @@ def getCachedPrice(blockTime):
 
 
 def fetchHistoricalPriceFromAPI(blockTime):
-    """Fetch price from external API (no caching)."""
+    """Get price from external API (no caching)."""
     url = f"{HISTORICAL_PRICE_API_URL}?currency=CAD&timestamp={blockTime}"
     response = requests.get(url)
     if response.status_code != 200:
@@ -127,7 +163,7 @@ def insertPrice(blockTime, priceCAD):
 
 
 def getHistoricalPrice(blockTime):
-    """Return cached price or fetch from API if not cached."""
+    """Return cached price or get from API if not cached."""
     cached = getCachedPrice(blockTime)
     if cached is not None:
         return cached
@@ -137,7 +173,7 @@ def getHistoricalPrice(blockTime):
 
 
 def getAllPrices():
-    """Fetch all historical prices for existing transactions."""
+    """Get all historical prices for existing transactions."""
     initializeDatabases()
     transactionsDf = getTransactions()
     for blockTime in transactionsDf["blockTime"]:

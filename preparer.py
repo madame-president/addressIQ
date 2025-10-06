@@ -9,7 +9,7 @@ from loader import (
 )
 
 # -----------------------------
-# FETCH DATA
+# GET DATA
 # -----------------------------
 transactionsDf = getTransactions()
 pricesDf = getAllPrices()

@@ -110,7 +110,7 @@ with st.container():
     # Fund value over time using live BTC price
     preparedDf["fundValueCAD"] = preparedDf["cumulativeBTC"] * liveBitcoinPrice
 
-    # Create Plotly figure
+    # Plotly figure
     fig = go.Figure()
 
     # Cumulative Cost line
@@ -206,4 +206,18 @@ with st.container():
     row2_col2.metric(
         label="Fund PnL (%)",
         value=f"{fundPnLPercentage:.2f}%"
+    )
+
+# -----------------------------
+# About Container
+# -----------------------------
+with st.expander("About"):
+    st.markdown(
+        """
+- This is an experimental fund. This is not investment advice.
+- I built this using Python, Streamlit, and [mempool.space](https://mempool.space) as a data provider.
+- I am the most proficient Bitcoin quant in Canada.
+- Currently working full-time at Kingston, Ross & Pasnak LLP *(since 2022)*.
+- You can contact me via email [nescobar@krpgroup.com](mailto:nescobar@krpgroup.com)
+        """
     )
