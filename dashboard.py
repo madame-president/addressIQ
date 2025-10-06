@@ -26,7 +26,7 @@ from y1report import (
 
 
 st.set_page_config(
-    page_title="AddressIQ Fund",
+    page_title="NormaDB",
     layout="centered"
 )
 
@@ -60,7 +60,7 @@ st.markdown(
 # Header container
 # -----------------------------
 with st.container():
-    st.markdown("## AddressIQ Bitcoin Fund")
+    st.markdown("## 🟠 Norma DB")
 
     st.markdown('<div class="fund-badge">Fund Address</div>', unsafe_allow_html=True)
     st.code(FUND_ADDRESS, language="text")
